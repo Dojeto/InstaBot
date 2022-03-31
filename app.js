@@ -8,6 +8,12 @@ const path = require("path");
 const jimp = require("jimp");
 const axios = require("axios");
 const cron = require("node-cron");
+const request = require("request-promise");
+const cheerio = require("cheerio");
+
+const url =
+  "https://boredhumans.com/art.php";
+
 const port = process.env.PORT || 3000;
 
 require("dotenv").config();
@@ -16,11 +22,6 @@ console.log(`[${moment().format("HH:mm:ss")}]`);
 
 cron.schedule("00 20 * * *", async () => {
   (async () => {
-    function apiCall() {
-      const promise = axios.get("https://dog.ceo/api/breeds/image/random");
-      const dataPromise = promise.then((response) => response.data);
-      return dataPromise;
-    }
 
     function quoteApi() {
       const promise = axios.get("https://api.quotable.io/random");
@@ -29,11 +30,17 @@ cron.schedule("00 20 * * *", async () => {
       return quote;
     }
 
-    var url = await apiCall();
-
     var quote = await quoteApi();
 
-    jimp.read(url["message"], (err, lenna) => {
+    const response = await request({
+      uri: url,
+    });
+  
+    let $ = cheerio.load(response);
+  
+    let test = $("#model-output > img")[0]["attribs"]["src"];
+
+    jimp.read(test, (err, lenna) => {
       if (err) throw err;
       lenna.write("./tesst.jpg");
     });
