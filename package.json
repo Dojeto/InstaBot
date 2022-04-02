@@ -20,6 +20,7 @@
     "moment": "^2.27.0",
     "node-cron": "^3.0.0",
     "node-insta-web-api": "^1.0.12",
+    "puppeteer": "^13.5.2",
     "request-promise": "^4.2.6"
   }
 }
