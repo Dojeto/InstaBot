@@ -15,8 +15,6 @@ const puppeteer = require("puppeteer");
 const url =
   "https://boredhumans.com/art.php";
 
-const uri = "https://www.all-hashtag.com/hashtag-generator.php";
-
 const port = process.env.PORT || 3000;
 
 require("dotenv").config();
