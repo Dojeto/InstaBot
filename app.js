@@ -20,7 +20,7 @@ require("dotenv").config();
 
 console.log(`[${moment().format("HH:mm:ss")}]`);
 
-cron.schedule("00 20 * * *", async () => {
+cron.schedule(process.env.TIME_SCHEDULE, async () => {
   (async () => {
 
     function quoteApi() {
