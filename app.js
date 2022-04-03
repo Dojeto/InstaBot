@@ -10,7 +10,6 @@ const axios = require("axios");
 const cron = require("node-cron");
 const request = require("request-promise");
 const cheerio = require("cheerio");
-const puppeteer = require("puppeteer");
 
 const url =
   "https://boredhumans.com/art.php";
@@ -23,23 +22,6 @@ console.log(`[${moment().format("HH:mm:ss")}]`);
 
 cron.schedule("00 20 * * *", async () => {
   (async () => {
-
-
-      const arr = ["fanart","art","deviantart","paint","gallery","pop art","wall art","art gallery"]
-      const random = Math.floor(Math.random() * 8)
-
-      const keyword = arr[random];
-      const URL = "https://www.all-hashtag.com/hashtag-generator.php";
-      const browser = await puppeteer.launch();
-      const page = await browser.newPage();
-  
-      await page.goto(URL);
-      const hmm = await page.$("#keyword");
-      await hmm.type(keyword);
-      const test2 = await (await page.$("#header-gen-form > button")).click();
-      const element = await page.waitForSelector('#copy-hashtags-similar'); 
-      const value = await element.evaluate(el => el.textContent);
-      await browser.close();
 
     function quoteApi() {
       const promise = axios.get("https://api.quotable.io/random");
@@ -72,7 +54,8 @@ cron.schedule("00 20 * * *", async () => {
     const photo = path.join(__dirname, "tesst.jpg");
     await InstaClient.useExistingCookie();
     console.log("Log in successfully ...");
-    const caption = `${quote["content"]} \nAuthor : ${quote["author"]} \n ${value}`;
+    const value = "#art #artist #artwork #arte #artoftheday #artistic #artsy #artofvisuals #artistsoninstagram #arts #artgallery #artists #artistsofinstagram #artlife #artlovers #artstagram #artista #artisan #artistoninstagram #artworks #artshow #artcollector #artforsale #artshub #artlover #artofinstagram #artphotography #Artstudio #artcollective #artdeco"
+    const caption = `${quote["content"]} \nAuthor : ${quote["author"]} \n${value} `;
     const resultAddPost = await InstaClient.addPost(photo, caption);
     fs.unlinkSync(`tesst.jpg`);
   })();
